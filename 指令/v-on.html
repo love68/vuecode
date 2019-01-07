@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="say('Tom')">
+        点击
+    </button>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        methods: {
+            say: function (name) {
+                console.log('hello,' + name);
+            }
+        }
+    })
+</script>
+</body>
+</html>
