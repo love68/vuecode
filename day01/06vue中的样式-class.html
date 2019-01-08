@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<style type="text/css">
+		.color{
+			color: red;
+		}
+		.thin{
+			font-weight: 200;
+		}
+		.italic{
+			font-style: italic;
+		}
+		.active{
+			letter-spacing: 0.5em;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h1 class="color thin italic active">我是一个很大很大的字符串</h1>
+
+		<!-- 第一种方式：传递一个数组['','','']  注意：要用v-bind绑定class-->
+		<h1 v-bind:class="['color','thin']">Vue中的样式class</h1>
+		<!-- 第二种方式：数组中使用三元表达式 -->
+		<h1 v-bind:class="['color',flag?'italic':'active']">Vue中的样式class</h1>
+		<!-- 第三种方式：数组中由对象来代替三元表达式 -->
+		<h1 :class="['color',{active:flag},{italic:flag}]">Vue中的样式class</h1>
+		<!-- 第四种方式：v-bind绑定对象 对象的属性可带引号，也可不带引号 -->
+		<h1 :class="obj">Vue中的样式class</h1>
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : true,
+				obj : {'active':true,'italic':false,'color':false,'thin':true}
+			}
+		})
+	</script>
+</body>
+</html>

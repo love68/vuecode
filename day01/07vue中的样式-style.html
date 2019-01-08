@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		
+		<h1 :style="obj">Vue中的样式style</h1>
+		<h1 :style="[obj,obj2]">Vue中的样式style</h1>
+
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				obj : {'font-weight':200,'color':'green'},
+				obj2: {'font-style':'italic'}
+			}
+		})
+	</script>
+</body>
+</html>

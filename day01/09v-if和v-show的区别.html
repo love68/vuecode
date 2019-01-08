@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="切换" @click="qiehuan">
+		<!-- v-if 每次会重新创建和删除代码 -->
+		<p v-if="flag">我是小苹果</p>
+		<!-- v-show 切换了元素的 display : none 样式 来实现隐藏 -->
+		<p v-show="flag">我是小西瓜</p>
+
+		<!-- v-if 有较高的切换性能消耗 -->
+	    <!-- v-show 有较高的初始渲染消耗 -->
+
+	    <!-- 如果元素涉及到频繁的切换，最好不要使用 v-if, 而是推荐使用 v-show -->
+	    <!-- 如果元素可能永远也不会被显示出来被用户看到，则推荐使用 v-if -->
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : true
+			},
+			methods : {
+				qiehuan(){
+					this.flag = !this.flag
+				}
+			}
+		})
+	</script>
+</body>
+</html>

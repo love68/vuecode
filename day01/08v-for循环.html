@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- v-for 循环普通数组 -->
+		<p v-for="(item,j) in list">索引：{{j}}--- 每一项:{{item}}</p>
+
+		<!-- v-for 循环对象数组 -->
+		<p v-for="items in userlist"> id : {{items.id}} ------name : {{items.name}}</p>
+		<p v-for="(items,i) in userlist"> id : {{items.id}} ------name : {{items.name}}---索引：{{i}}</p>
+
+		<!-- v-for 循环对象 -->
+		<p v-for="(val,key,i) in user">值:{{val}}---键：{{key}} 索引：{{i}}</p>
+
+		<!-- v-for 迭代数字 -->
+		<p v-for="(i,j) in 10">{{i}} -------------- 索引：{{j}}</p>
+
+		 <!-- 注意： v-for 循环的时候，key 属性只能使用 number获取string -->
+	    <!-- 注意： key 在使用的时候，必须使用 v-bind 属性绑定的形式，指定 key 的值 -->
+	    <!-- 在组件中，使用v-for循环的时候，或者在一些特殊情况中，如果 v-for 有问题，必须 在使用 v-for 的同时，指定 唯一的 字符串/数字 类型 :key 值 -->
+	    <p v-for="items in userlist" :key="items.id"> id : {{items.id}} ------name : {{items.name}}</p>
+	</div>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				list : [1,2,3,4,5,6,7,8,9],
+				userlist : [{id : 1,name : 'liangfu'},{id : 2,name : 'jjk'}],
+				user : {id :1,name : 'ls',sex : '女'}
+			}
+		})
+	</script>
+</body>
+</html>

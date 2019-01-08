@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<style type="text/css">
+		.inner{
+			height:60px;
+			background-color: red;
+		}
+		.outer{
+			height: 80px;
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<!-- .stop 阻止冒泡事件
+			按钮在div中，如果没有.stop 那么点击按钮的事件时，也会触发div的事件
+			使用了.stop 当点击按钮时，只会触发按钮的事件，不会触发div的事件
+		 -->
+		<div class="inner" @click="div1Handler">
+			<input type="button" value="按钮" @click.stop="btnHandler">
+		</div>
+
+		<!-- .prevent 阻止默认行为 
+			使用了 .prevent 就不会跳转到该http://www.baidu.com网页
+		-->
+		<a href="http://www.baidu.com" @click.prevent="linkHandler">百度</a>
+
+		<!-- .capture 捕获触发事件
+			点击按钮时，可以捕获到 div 的事件
+		 -->
+		<div class="inner" @click.capture="div1Handler">
+			<input type="button" value="按钮" @click="btnHandler">
+		</div>
+
+		<!-- .self 只有点击当前元素才会触发事件 -->
+		<div class="inner" @click.self="div1Handler">
+			<input type="button" value="按钮" @click="btnHandler">
+		</div>
+
+		<!-- .once 只触发一次 
+			使用了 .once 该点击事件只触发一次
+		-->
+		<a href="http://www.baidu.com" @click.prevent.once="linkHandler">百度</a>
+
+		<!-- .self 和.stop 的区别 -->
+		<div class="outer" @click="div2Handler">
+			<div class="inner" @click="div1Handler">
+				<input type="button" value="按钮" @click.stop="btnHandler">
+			</div>
+		</div>
+
+		<!-- .self 只会阻止自身元素冒泡行为的触发 不会真正阻止冒泡行为 -->
+		<div class="outer" @click="div2Handler">
+			<div class="inner" @click.self="div1Handler">
+				<input type="button" value="按钮" @click="btnHandler">
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+
+			},
+			methods : {
+				div1Handler(){
+					console.log("这是触发了 inner div 点击事件")
+				},
+				btnHandler(){
+					console.log("这是触发了 btn 按钮点击事件")
+				},
+				linkHandler(){
+					console.log("这是触发了 link 链接事件")
+				},
+				div2Handler(){
+					console.log("这是触发了 outer div 点击事件")
+				}
+			}
+		})
+	</script>
+</body>
+</html>

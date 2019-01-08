@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{msg}}</p>
+		<p v-cloak>++++++++++++++++{{msg}}+++++++++++++++++++++++++</p>
+		<!-- v-cloak 可以解决 插值表达式 闪烁问题 -->
+		<p v-text="msg">+++++++++++++++++++</p>
+		<!-- v-text 默认解决 闪烁问题 -->
+		<!-- v-text 会覆盖原标签内的所有内容 -->
+
+		<p v-text="msg2"></p>
+		<p v-html="msg2">12121212</p>
+		<!-- v-html 可以解析html代码 -->
+
+		<input type="button" value="按钮" v-bind:title="mytitle">
+		<!-- v-bind:用于绑定属性 可简写为 : -->
+
+		<input type="button" value="提交" v-on:click="mytitle2">
+		<input type="button" value="提交" @click="mytitle2">
+		<!-- v-on: 事件绑定 可简写为@ -->
+
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				msg : "我是一个app",
+				msg2 : "<h1>我是一个app</h1>",
+				mytitle : "这是我自己写的一个title"
+			},
+			methods : {
+				mytitle2 (){
+					alert("我是一个按钮")
+				}
+			}
+		})
+	</script>
+</body>
+</html>
