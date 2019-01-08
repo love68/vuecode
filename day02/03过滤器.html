@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{msg | add | replace("目前","123")}}</p>
+		<p>{{time | dateformat}}</p>
+	</div>
+
+
+	<script type="text/javascript">
+
+		/*定义全局过滤器*/
+
+		Vue.filter('replace',function(msg,arg1,arg2){
+			return msg.replace(/现在/g,arg1+arg2);
+		})
+
+
+		Vue.filter('add',function(data){
+			return data + "======>>>>>>>>"; 
+		})
+
+
+		//时间格式转换
+		Vue.filter('dateformat',function(dateStr,pattern = ""){
+			 var dt = new Date(dateStr)
+
+		     //   yyyy-mm-dd
+		     var y = dt.getFullYear()
+		     var m = dt.getMonth() + 1
+		     var d = dt.getDate()
+
+		     // return y + '-' + m + '-' + d
+
+
+
+		     if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+		       return `${y}-${m}-${d}`
+		     } else {
+		       var hh = dt.getHours()
+		       var mm = dt.getMinutes()
+		       var ss = dt.getSeconds()
+
+		       return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+		     }
+		})
+
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				time : new Date(),
+				msg : '现在的时间是：现在的时间是：现在的时间是：现在的时间是：现在的时间是：'
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

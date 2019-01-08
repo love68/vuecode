@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="./lib/bootstrap-3.3.7.css">
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-focus v-color="'blue'" >
+	</div>
+
+	<script type="text/javascript">
+		Vue.directive('focus',{
+			bind : function(el){
+
+			},
+			inserted : function(el){
+				el.focus()
+			},
+			updated : function(el){
+
+			}
+		})
+
+		Vue.directive('color',{
+			// 和样式相关的操作，一般都可以在 bind 执行
+			bind : function(el,binding){
+				el.style.color = binding.value
+			}
+		})
+
+		var vm = new Vue({
+			el : "#app",
+			data : {},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

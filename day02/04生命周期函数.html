@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="修改信息" @click="change">
+		<h1 id="h3">{{msg}}</h1>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				msg : "YES"
+			},
+			methods : {
+				change(){
+					this.msg = "NO"
+				},
+				show(){
+					console.log("执行了show方法")
+				}
+			},
+			beforeCreate(){
+				//console.log(this.msg)
+				//this.show()
+			},
+			created(){
+				console.log(this.msg)
+				this.show()
+				//data 和 methods 已经被初始化好
+				//现在可以调用methods中的方法和操作data中的数据了
+			},
+			beforeMount(){
+				console.log(document.getElementById('h3').innerText)
+				//模板已经在内存中编辑完成了，但是还没有把 模板渲染到 页面中
+				//页面中的元素还没有真正被替换
+			},
+			mounted(){
+				console.log(document.getElementById('h3').innerText)
+				//内存中的模板，已经真实的挂载到了页面中，用户已经可以看到渲染好的页面
+			},
+			beforeUpdate(){
+				console.log("界面上的元素内容：" + document.getElementById('h3').innerText)
+				console.log("data中的msg：" + this.msg)
+			},
+			updated(){
+				console.log("界面上的元素内容：" + document.getElementById('h3').innerText)
+				console.log("data中的msg：" + this.msg)
+				//页面和data数据已经同步
+			},
+			beforeDestroy(){
+				
+			},
+			destroyed(){
+				
+			}
+		})
+
+
+	</script>
+</body>
+</html>
