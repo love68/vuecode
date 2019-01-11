@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件切换</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .v-enter,v-leave-to{
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        .v-enter-active,.v-leave-active{
+            transition: all 0.6s ease-in-out;
+        }
+
+
+    </style>
+</head>
+<body>
+
+</body>
+
+<div id="app">
+
+    <a @click.prevent="name='component1'">component1</a>
+    <a @click.prevent="name='component2'">component2</a>
+
+    <transition mode="out-in">
+        <component :is="name"></component>
+    </transition>
+</div>
+
+
+<script>
+
+    Vue.component("component1", {
+        template: "<h3>这是组件1</h3>"
+    })
+
+    Vue.component("component2", {
+        template: "<h3>这是组件2</h3>"
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            name: "component1"
+        }
+    })
+</script>
+
+</html>
