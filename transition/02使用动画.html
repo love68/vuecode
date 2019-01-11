@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        /*准备进来和离开时的效果*/
+        .v-enter,.v-leave-to{
+            opacity: 0;
+            transform: translateX(200px);
+        }
+
+        /*进入完成和准备离开时的效果*/
+        .v-enter-active,.v-leave-active{
+            opacity: 1;
+            /*transform: translateX(200px);*/
+            transition:all 2s ease;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <input value="toggle" type="button" @click="flag = !flag">
+    <transition>
+        <h3 v-if="flag">this is a h3</h3>
+    </transition>
+</div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        }
+    })
+</script>
+</body>
+</html>
