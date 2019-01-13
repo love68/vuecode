@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="./lib/vue-2.4.0.js"></script>
+	<!-- 引入 -->
+	<script src="./lib/vue-router-3.0.1.js"></script>
+</head>
+<body>
+	<div id="app">
+		<router-link to="/account">account</router-link>
+
+		<router-view></router-view>
+	</div>
+
+	<!-- 嵌套 -->
+	<template id="templ">
+		<div>
+		<h1>这是 account 组件</h1>
+
+		<!-- 注意 /account/login -->
+		<router-link to="/account/login">登录</router-link>
+		<router-link to="/account/register">注册</router-link>
+		
+		<router-view></router-view>
+
+		</div>
+	</template>
+
+	<script type="text/javascript">
+		/* 2 创建组件模板对象*/
+		var account  = {
+			template : '#templ',
+		}
+
+		var login = {
+			template : '<h1>登录组件</h1>',
+		}
+
+		var register = {
+			template : '<h1>注册组件</h1>'
+		}
+
+		/* 1 创建一个路由对象*/
+		var router = new VueRouter({
+			routes : [
+				{path: '/account',component : account,
+				/* 使用 children 嵌套  注意：path */
+				children : [
+					{path: 'login', component: login},
+					{path: 'register', component: register}
+				]
+			},
+			]
+		})
+
+		var vm = new Vue({
+			el : '#app',
+			data : {},
+			methods : {},
+/* 3 将路由规则对象，注册到 vm 实例上，监听 URL 地址的变化，然后展示对应的组件*/
+			router
+		})
+	</script>
+</body>
+</html>

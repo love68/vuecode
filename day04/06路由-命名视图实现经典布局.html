@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="./lib/vue-2.4.0.js"></script>
+	<!-- 引入 -->
+	<script src="./lib/vue-router-3.0.1.js"></script>
+	<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		h1 {
+			padding: 0;
+			margin: 0;
+		}
+		.header{
+			background-color: orange;
+			height: 70px;
+		}
+		.container{
+			display: flex;
+			height: 600px;
+		}
+		.left{
+			background-color: red;
+			flex: 2;
+		}
+		.right{
+			background-color: green;
+			flex: 8;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+
+		<router-view></router-view>
+		
+		<div class="container">
+			<router-view name="left"></router-view>
+			<router-view name="right"></router-view>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+
+		var header = {
+			template : '<h1 class="header">header头部</h1>'
+		}
+
+		var left = {
+			template : '<h1 class="left">left左侧</h1>'
+		}
+
+		var right = {
+			template : '<h1 class="right">right右侧</h1>'
+		}
+
+		var router = new VueRouter({
+			routes : [
+				{path : '/',components:{
+						'default':header,
+						'left':left,
+						'right':right
+					}
+				}
+			]
+		})
+
+		var vm = new Vue({
+			el : '#app',
+			data : {},
+			methods : {},
+			router
+		})
+	</script>
+</body>
+</html>

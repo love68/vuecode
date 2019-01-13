@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ref</title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="获取元素" ref="mybtn" @click="getElement">
+
+		<h1 ref="myh1">我是一个h1，我有一条数据</h1>
+
+		<comp ref="mycom"></comp>
+	</div>
+
+	<template id="templ">
+		<h2>我是一个组件</h2>
+	</template>
+
+	<script type="text/javascript">
+
+		Vue.component('comp',{
+			template : "#templ",
+			data(){
+				return {
+					msg : "组件的中的data"
+				}
+			}
+		})
+
+		var vm = new Vue({
+			el : '#app',
+			data : {},
+			methods : {
+				getElement(){
+					alert(this.$refs.myh1.innerText)
+					alert(this.$refs.mybtn.value)
+					alert(this.$refs.mycom.msg)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
