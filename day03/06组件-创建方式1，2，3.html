@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 方式一： -->
+		<compl></compl>
+
+		<!-- 方式二： -->
+		<my-compl></my-compl>
+
+		<!-- 方式三： -->
+		<mycompl></mycompl>
+
+		<login></login>
+
+	</div>
+
+	<template id="temp">
+		<h3>通过template元素，在外部定义的组件结构 -------------- {{msg}}</h3>
+	</template>
+
+	<template id="templ2">
+		<h4>这是一个私有组件--------------{{msg}}</h4>
+	</template>
+
+	<script type="text/javascript">
+		 // Vue.component 第一个参数:组件的名称(命名：若是myCompl 引用组件时，要用 - 连接 my-compl)
+   		 // 第二个参数: Vue.extend 创建的组件  ,其中 template 就是组件要展示的HTML内容
+		Vue.component('compl',Vue.extend({
+			template : '<h1>这是使用了 Vue.extend 创建的组件</h1>'
+		}))
+
+		Vue.component('myCompl',{
+			template : '<h2>我是一个组件 <span>我是一个span</span></h2>'
+		})
+
+		Vue.component('mycompl',{
+			data : function(){
+				return {
+					msg : "梁富"
+				}
+			},
+			template : '#temp'
+		})
+
+		var vm = new Vue({
+			 el : "#app",
+			 data : {},
+			 methods : {},
+			 filters : {},
+			 directives : {},
+			 components : {//定义内部私有组件
+			 	login : {
+			 		data : function(){
+			 			return {
+			 				msg : "这是组件自己的data数据"
+			 			}
+			 		},
+			 		template : "#templ2"
+			 	}
+			 },
+
+			 beforeCreate(){},
+			 created(){},
+			 beforeMount(){},
+			 mounted(){},
+			 beforeUpdate(){},
+			 updated(){},
+			 beforeDestroy(){},
+			 destroyed(){}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="按钮" @click="flag = !flag">
+		<h1 v-show="flag">我是梁富，哈哈哈哈</h1>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : '#app',
+			data : {
+				flag : true
+			},
+			methods : {
+
+			}
+		})
+	</script>
+</body>
+</html>

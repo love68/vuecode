@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<style type="text/css">
+		li {
+			border:1px dashed #ff00ff;
+			margin: 5px;
+			line-height: 35px;
+			padding-left: 5px;
+			font-size: 14px;
+			width: 400px;
+		}
+
+		li:hover {
+			background-color: hotpink;
+			transition: all 0.8s ease;
+		}/*设置点击时效果*/
+
+		.v-enter,
+		.v-leave-to {
+			opacity: 0;
+			transform: translateY(80px);
+		}
+
+		.v-enter-active,
+		.v-leave-active {
+			transition: all 0.6s ease;
+		}
+
+		/* 。v-move 和 .v-leave-active 配合使用，实现列表后续元素渐渐飘上来的效果 */
+		.v-move {
+			transition: all 0.6s ease;
+		}
+		.v-leave-active{
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<label>id</label>
+		<input type="text" v-model="id">
+		<label>name</label>
+		<input type="text" v-model="name">
+		<label>sex</label>
+		<input type="text" v-model="sex">
+		<input type="button" value="添加" @click="add">
+
+
+		<!-- <ul> -->
+			<!-- v-for 渲染的，不能用transition包裹，要用到transition-group -->
+			<!-- appear属性 页面刚展示时，入场效果 -->
+			<!-- tag属性 指定渲染为指定元素，默认为 span 标签 -->
+			<transition-group appear tag="ul">
+				<li v-for="(item,i) in list" :key="item.id" @click="del(i)">
+					{{item.id}}--------------{{item.name}}---------------{{item.sex}}
+				</li>
+			</transition-group>
+		<!-- </ul> -->
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				id : '',
+				name : '',
+				sex : '',
+				list : [
+					{id : 1, name : "梁富", sex : "女"},
+					{id : 2, name : "贾俊康", sex : "男"},
+					{id : 3, name : "张璐", sex : "女"},
+					{id : 4, name : "梁三", sex : "男"},
+				]
+			},
+			methods : {
+				add(){
+					var user = {id : this.id, name : this.name, sex : this.sex}
+					this.list.push(user)
+					this.id = this.name = this.sex = ''
+				},
+				del(i){
+					this.list.splice(i,1)
+				}
+			}
+		})
+	</script>
+</body>
+</html>

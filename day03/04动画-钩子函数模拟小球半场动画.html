@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<style type="text/css">
+		.ball{
+			width:15px;
+			height:15px;
+			border-radius: 50%;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="加入购物车" @click="flag = !flag">
+
+		<transition
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+		>
+			<div class="ball" v-if="flag"></div>
+		</transition>
+		
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : false
+			},
+			methods : {
+				beforeEnter(el){
+					//设置小球起始位置
+					el.style.transform = "translate(0,0)"
+				},
+				enter(el,done){
+					el.offsetWidth//不写，没有效果
+
+					el.style.transform = "translate(150px,450px)"
+					el.style.transition = 'all 1s ease'
+
+					done()
+				},
+				afterEnter(el){
+					this.flag = !this.flag
+				}
+			}
+		})
+	</script>
+</body>
+</html>

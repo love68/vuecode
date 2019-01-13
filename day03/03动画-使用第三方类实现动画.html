@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="./lib/animate.css">
+</head>
+<body>
+	<div id="app">
+	
+		<input type="button" value="按钮" @click="flag = !flag">
+		<transition enter-active-class="bounceIn"
+					leave-active-class="bounceOut"
+					:duration="{enter : 200, leave : 800}"
+		><!--  :duration="200"  -->
+			<h1 v-if="flag" class="animated">
+				梁富~~~~~~~~~~~~~~~
+			</h1>
+		</transition>
+
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : true
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

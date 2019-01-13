@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+	<style type="text/css">
+		.v-enter,
+		.v-leave-to{
+			opacity: 0;
+			transform: translateX(200px);
+		}
+
+		.v-enter-active,
+		.v-leave-active{
+			transition: all 1s ease;
+		}
+
+		.my-enter,
+		.my-leave-to{
+			opacity: 0;
+			transform: translateX(200px);
+		}
+
+		.my-enter-active,
+		.my-leave-active{
+			transition: all 1s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="动" @click="flag = !flag">
+
+		<transition>
+			<h1 v-if="flag">我是一个会动的h1</h1>
+		</transition>	
+
+		<hr>
+
+		<!-- 修改 v- 前缀 -->
+		<input type="button" value="动" @click="flag2 = !flag2">
+
+		<transition name="my">
+			<h1 v-if="flag2">我是一个会动的h1</h1>
+		</transition>
+
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : true,
+				flag2 : true
+			},
+			methods : {}
+		})
+	</script>
+</body>
+</html>

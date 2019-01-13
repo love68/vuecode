@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+
+	<style type="text/css">
+		 .v-enter,
+	    .v-leave-to {
+	      opacity: 0;
+	      transform: translateX(150px);
+	    }
+
+	    .v-enter-active,
+	    .v-leave-active {
+	      transition: all 0.5s ease;
+	    }
+	</style>
+</head>
+<body>
+	<!-- 切换方式一： -->
+	<div id="app">
+		<a href="" @click.prevent="flag = true">登录</a>
+		<a href="" @click.prevent="flag = false">注册</a>
+
+		<login v-if="flag"></login>
+		<register v-else="flag"></register>
+	</div>
+
+		<!-- 切换方式二： -->
+		<!-- 切换动画 -->
+	  <div id="app2">
+	    <a href="" @click.prevent="comName='login'">登录</a>
+	    <a href="" @click.prevent="comName='register'">注册</a>
+
+	    <!-- component 是一个占位符 :is 属性，指定要展示的组件名称 -->
+	    <transition mode="out-in">
+	    	<component :is="comName"></component>
+	    </transition>
+	   
+	  </div>
+
+	<template id="log">
+		<h2>登录组件</h2>
+	</template>
+
+	<template id="reg">
+		<h2>注册组件</h2>
+	</template>
+
+	<script type="text/javascript">
+		Vue.component('login',{
+			template : '#log'
+		})
+
+		Vue.component('register',{
+			template : '#reg'
+		})
+
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				flag : true
+			},
+			methods : {
+
+			}
+		})
+
+		var vm = new Vue({
+			el : "#app2",
+			data : {
+				comName : 'login'
+			},
+			methods : {
+
+			}
+		})
+	</script>
+</body>
+</html>
