@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<login :parentmag="msg"></login>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				msg : "我是父组件的data数据"
+			},
+			methods : {},
+
+			//注意： props 中的数据，都是 【只读】 的，无法重新赋值
+            // data 上的数据，都是 【可读可写】 的；
+			components : {
+				login : {
+					data(){
+						return {
+							user : {id : 1, name : "liangfu"}
+						}
+					},
+					template : "<div><h1>我是一个私有组件~~~~~~~~~~~~~~~~~~{{parentmag}}</h1><h2>------{{user.id}}----------{{user.name}}</h2></div>",
+					props : ['parentmag']//父组件传递过来的 parentmsg 属性，先在 props 数组中，定义一下，才能使用这个数据
+				}
+			}
+		})
+	</script>
+</body>
+</html>

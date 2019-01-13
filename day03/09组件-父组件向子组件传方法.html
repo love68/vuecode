@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 父组件向子组件传递方法，使用 v-on 事件绑定机制 -->
+		<login @func="show"></login>
+	</div>
+
+	<template id="temp">
+		<div>
+			<h1>我是一个子组件</h1>
+			<input type="button" value="点击" @click="myclick">
+		</div>
+	</template>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				msg : null
+			},
+			methods : {
+				show(data){
+					alert(data.id+"-----------"+data.name)
+				}
+			},
+			components : {
+				login : {
+					data(){
+						return {
+							user : {id : 1, name : "liangfu"}
+						}
+					},
+					template : "#temp",
+					methods : {
+						myclick(){
+							/*调用父组件的方法*/
+							this.$emit('func',this.user)
+						}
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
