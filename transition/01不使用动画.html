@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不使用transition</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <input value="toggle" type="button" @click="flag = !flag">
+    <h3 v-if="flag">this is a h3</h3>
+</div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            flag:true,
+            num:333
+        }
+    })
+</script>
+</body>
+</html>

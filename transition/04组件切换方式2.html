@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件切换</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+
+</body>
+
+<div id="app">
+
+    <a @click.prevent="name='component1'">component1</a>
+    <a @click.prevent="name='component2'">component2</a>
+
+    <!--component 要输入字符串'',这种方式可以切换多个组件-->
+    <!--<component :is="name"></component>-->
+    <component :is="name"></component>
+</div>
+
+
+<script>
+
+    Vue.component("component1", {
+        template: "<h3>这是组件1</h3>"
+    })
+
+    Vue.component("component2", {
+        template: "<h3>这是组件2</h3>"
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            name: "component1"
+        }
+    })
+</script>
+
+</html>

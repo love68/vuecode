@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.6s ease;
+        }
+
+        li:hover {
+            background-color: chartreuse;
+            transition: all 0.6s ease-in-out;
+        }
+
+        /*.v-move和v-leave-active配合使用实现后续元素动画效果*/
+        .v-move {
+            transition: all 0.6s ease;
+        }
+        .v-leave-active{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    id : <input type="text" name="" v-model="id">
+    name : <input type="text" name="" v-model="name">
+    <button v-on:click="add">添加</button>
+
+
+    <!--appear属性，实现列表刚出现的时候的动画-->
+    <transition-group appear tag="ul">
+            <li v-for="(item,index) in list" :key="item.id" @click="del(index)">{{item.id}}==========={{item.name }}</li>
+    </transition-group >
+
+</div>
+
+</body>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            id: "",
+            name: "",
+            list: [
+                {id: 1, name: "刘备"},
+                {id: 2, name: "关于"},
+                {id: 3, name: "张飞"},
+                {id: 4, name: "赵云"}
+            ]
+        },
+        methods: {
+            add: function () {
+                this.list.push({"id": this.id, "name": this.name})
+                this.id = this.name = ""
+            },
+            del: function (id) {
+                this.list.splice(id, 1)
+            }
+        }
+    })
+</script>
+
+</html>
