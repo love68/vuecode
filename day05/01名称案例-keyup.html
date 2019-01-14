@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="firstname" @keyup="funcname"> +
+		<input type="text" v-model="lastname" @keyup="funcname"> =
+		<input type="text" v-model="fullname" >
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el : "#app",
+			data : {
+				firstname : '',
+				lastname : '',
+				fullname : ''
+			},
+			methods : {
+				funcname(){
+					this.fullname = this.firstname + "-" + this.lastname
+				}
+			}
+		})
+	</script>
+</body>
+</html>
