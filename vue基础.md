@@ -72,3 +72,212 @@
 
   > 不加capture时，触发函数的顺序是 btn -> innerDiv；如果给div加了.capture，那么触发函数的顺序会变成 innerDiv->btn；如果都加，由外而内innerDiv->btn；如果只给btn加，那么函数的触发顺序是 btn -> innerDiv。
 
+
+# webpack
+
+## 第三方loader的使用
+
+### 处理css、less、scss
+
+- cnpm i style-loader css-loader --save-dev
+- cnpm i less-loader less -D
+- cnpm i sass-loader node-sass --save-dev
+- 修改webpack.config.js文件
+
+```javascript
+module: { 
+    rules: [ 
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }, // 处理 CSS 文件的 loader
+      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] }, // 处理 less 文件的 loader
+      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] }, // 处理 scss 文件的 loader
+    ]
+  }
+```
+
+### 处理图片、字体文件
+
+- cnpm i url-loader file-loader --save-dev
+
+- 配置处理图片
+
+  ```javascript
+  module:{
+    rules:[
+      { test: /\.(jpg|png|gif|bmp|jpeg)$/, use: 'url-loader?limit=7631&name=[hash:8]-[name].[ext]' }, // 处理 图片路径的 loader
+    ]
+  }
+  ```
+
+  > 后面的参数limit限制图片大小，单位是字节；
+  >
+  > name配置是否按原文件名显示，默认会用文件名的hash值，如上配置是取hash值得前8位
+  >
+  > [.ext]  源文件的扩展名
+
+- 配置处理字体
+
+  ```javascript
+  { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' }
+  ```
+
+## 使用bebel处理js的高级语法
+
+1. 运行`cnpm i babel-core babel-loader@7 babel-plugin-transform-runtime --save-dev`安装babel的相关loader包
+
+2. 运行`cnpm i babel-preset-env babel-preset-stage-0 --save-dev`安装babel转换的语法
+
+3. 在`webpack.config.js`中添加相关loader模块，其中需要注意的是，一定要把`node_modules`文件夹添加到排除项：
+
+   > { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ }
+
+4. 在项目根目录中添加`.babelrc`文件，并修改这个配置文件如下
+
+   ```javascript
+   {
+       "presets":["env", "stage-0"],
+       "plugins":["transform-runtime"]
+   }
+   ```
+
+## 在webpack中使用vue
+
+### 安装
+
+> npm i vue -S
+
+### 导入
+
+```
+第一种方式：
+import Vue from '../node_modules/vue/dist/vue.js'
+第二种方式
+	import Vue from 'vue'
+	在webpack.config.js文件中配置
+	resolve:{
+        alias: {
+            'vue$': 'vue/dist/vue.js'
+        }
+    }
+```
+
+### 使用.vue的方式创建模板
+
+```
+需要安装第三方loader
+cnpm i vue-loader vue-template-compiler -D
+还需安装bebel、css和style的loader
+在webpack.config.js文件中配置
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+plugins: [
+        new VueLoaderPlugin()
+]
+```
+
+## 使用vue-router
+
+### 安装
+
+> npm i install vue-router -S
+
+### 使用
+
+```
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import account from './template/Account.vue'
+import info from './template/Info.vue'
+import login from './template/Login.vue'
+import register from './template/Register.vue'
+
+let router = new VueRouter({
+    routes:[
+        {path :"/account"
+            ,component:account,
+            children:[
+                {path:'login',component:login},
+                {path:'register',component:register}
+            ]
+        },
+        {path :"/info",component:info}
+    ]
+})
+
+let vm = new Vue({
+    el:"#app",
+    data:{
+        msg:"这是一条消息"
+    },
+    render:function (c) {
+        return c(demo);
+    },
+    router
+})
+
+```
+
+
+
+# 安装命令
+
+- ### npm install moduleName
+
+  ```
+  1. 安装模块到项目node_modules目录下。
+  2. 不会将模块依赖写入devDependencies或dependencies 节点。
+  3. 运行 npm install 初始化项目时不会下载模块
+  ```
+
+- npm install -g moduleName 命令
+
+  ```
+  1. 安装模块到全局，不会在项目node_modules目录中保存模块包。
+  2. 不会将模块依赖写入devDependencies或dependencies 节点。
+  3. 运行 npm install 初始化项目时不会下载模块。
+  ```
+
+- ### npm install -save moduleName 命令 -S
+
+  ```
+  1. 安装模块到项目node_modules目录下。
+  2. 会将模块依赖写入dependencies 节点。
+  3. 运行 npm install 初始化项目时，会将模块下载到项目目录下。
+  4. 运行npm install --production或者注明NODE_ENV变量值为production时，会自动下载模块到node_modules目录中
+  ```
+
+- ### npm install -save-dev moduleName 命令 -D
+
+  ```
+  1. 安装模块到项目node_modules目录下。
+  2. 会将模块依赖写入devDependencies 节点。
+  3. 运行 npm install 初始化项目时，会将模块下载到项目目录下。
+  4. 运行npm install --production或者注明NODE_ENV变量值为production时，不会自动下载模块到node_modules目录中。
+  ```
+
+`总结`
+
+> devDependencies 节点下的模块是我们在开发时需要用的，比如项目中使用的 gulp ，压缩css、js的模块。这些模块在我们的项目部署后是不需要的，所以我们可以使用 -save-dev 的形式安装。像 express 这些模块是项目运行必备的，应该安装在 dependencies 节点下，所以我们应该使用 -save 的形式安装。
+
+# js相关
+
+## export和export default
+
+```
+export default 在一个模块中，只能暴露一个对象；
+export 可以暴露多次，必须严格按照导出时候的名称，来使用  {}  按需接收 import {person} from './js/demo'
+```
+
+`补充`
+
+> 在Node中 使用 var 名称 = require('模块标识符')
+>  module.exports 和 exports 来暴露成员
+
+# nrm的安装使用
+
+作用：提供了一些最常用的NPM包镜像地址，能够让我们快速的切换安装包时候的服务器地址；
+
+命令：
+
+1. 运行`npm i nrm -g`全局安装`nrm`包；
+2. 使用`nrm ls`查看当前所有可用的镜像源地址以及当前所使用的镜像源地址；
+3. 使用`nrm use npm`或`nrm use taobao`切换不同的镜像源地址；
