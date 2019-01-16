@@ -9,7 +9,7 @@
 
         <router-view></router-view>-->
 
-        <login :info="msg1"></login>
+        <login :info="msg1" @func="show"></login>
 
     </div>
 </template>
@@ -21,7 +21,15 @@
         data:function(){
             return{
                 msg:"这是account组件，父组件",
-                msg1:'传递的消息'
+                msg1:'传递的消息',
+                sonMsg:""
+            }
+        },
+        methods:{
+            show(data){
+                this.sonMsg = data;
+                console.log(this.sonMsg);
+                this.msg = data;
             }
         },
         components:{
