@@ -27,6 +27,96 @@
   > 数据的双向绑定，但是只能用在表单标签中。
 
 
+## vue属性
+
+- watch：可以监听一个数据的变化
+
+```javascript
+watch 监听普通数据的变化 
+watch: {
+        'firstName': function (newVal, oldVal) { // 第一个参数是新数据，第二个参数是旧数据
+          this.fullName = newVal + ' - ' + this.lastName;
+        },
+        'lastName': function (newVal, oldVal) {
+          this.fullName = this.firstName + ' - ' + newVal;
+        }
+}
+
+watch监听路由的变化
+
+watch: {
+        //  this.$route.path
+        '$route.path': function (newVal, oldVal) {
+          // console.log(newVal + ' --- ' + oldVal)
+          if (newVal === '/login') {
+            console.log('欢迎进入登录页面')
+          } else if (newVal === '/register') {
+            console.log('欢迎进入注册页面')
+          }
+        }
+ }
+```
+
+
+
+- computed：计算属性
+
+```javascript
+computed: { // 在 computed 中，可以定义一些 属性，这些属性，叫做 【计算属性】， 计算属性的，本质，就是 一个方法，只不过，我们在使用 这些计算属性的时候，是把 它们的 名称，直接当作 属性来使用的；并不会把 计算属性，当作方法去调用；
+        // 注意1： 计算属性，在引用的时候，一定不要加 () 去调用，直接把它 当作 普通 属性去使用就好了；
+        // 注意2： 只要 计算属性，这个 function 内部，所用到的 任何 data 中的数据发送了变化，就会 立即重新计算 这个 计算属性的值
+        // 注意3： 计算属性的求值结果，会被缓存起来，方便下次直接使用； 如果 计算属性方法中，所以来的任何数据，都没有发生过变化，则，不会重新对 计算属性求值；
+        'fullname': function () {
+          console.log('ok')
+          return this.firstname + '-' + this.middlename + '-' + this.lastname
+        }
+      }
+```
+
+
+
+- router：路由
+
+  ```javascript
+  传参方式1
+  { path: '/user/:id', component: User, props: true }
+  接收用 this.$route.params.name
+  传参方式2
+  url?name=xxx
+  接收用 this.$route.query.name
+  ```
+
+- components：组件
+
+  ```
+  全局组件
+  Vue.component('名称','组件对象')
+  私有的
+  在components属性里写{
+    '名称':{
+      
+    }
+  }
+  ```
+
+  ​
+
+- filter：过滤器
+
+  ```
+  全局过滤器
+  Vue.filter('名称',function(){})
+  私有的，直接在filter属性后面写方法
+  ```
+
+  watch、computed和methods之间的对比
+
+- `computed`属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
+
+- `methods`方法表示一个具体的操作，主要书写业务逻辑；
+
+- `watch`一个对象，键是需要观察的表达式，值是对应回调函数。主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是`computed`和`methods`的结合体；
+
 
 ## 事件修饰符
 
@@ -73,6 +163,21 @@
   > 不加capture时，触发函数的顺序是 btn -> innerDiv；如果给div加了.capture，那么触发函数的顺序会变成 innerDiv->btn；如果都加，由外而内innerDiv->btn；如果只给btn加，那么函数的触发顺序是 btn -> innerDiv。
 
 
+## 使用ref获取dom元素
+
+```vue
+<!-- 使用 ref 获取元素 -->
+<h1 ref="myh1">这是一个大大的H1</h1>
+      <hr>
+<!-- 使用 ref 获取子组件 -->
+<my-com ref="mycom"></my-com>
+
+// 通过 this.$refs 来获取元素
+console.log(this.$refs.myh1.innerText);
+// 通过 this.$refs 来获取组件
+console.log(this.$refs.mycom.name);
+```
+
 ## 组件
 
 - 父组件的代码
@@ -86,10 +191,6 @@
           
       </div>
   </template>
-
-  <script>
-     
-  </script>
 
   ```
 
@@ -118,9 +219,7 @@
 1. 父组件中的配置
 
    ```vue
-
    <login :info="msg1"></login>
-
    <script>
      import login from './Login.vue'
        export default {
@@ -233,6 +332,14 @@ export default {
 
 </style>
 ```
+
+`注意`
+
+>组件中的 所有 props 中的数据，都是通过 父组件传递给子组件的,props 中的数据，都是只读的，无法重新赋值。
+>
+>子组件中的 data 数据，并不是通过 父组件传递过来的，而是子组件自身私有的，比如： 子组件通过 Ajax ，请求回来的数据，都可以放到 data 身上；可读可写。
+
+
 
 # webpack
 
