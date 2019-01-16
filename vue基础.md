@@ -73,6 +73,167 @@
   > 不加capture时，触发函数的顺序是 btn -> innerDiv；如果给div加了.capture，那么触发函数的顺序会变成 innerDiv->btn；如果都加，由外而内innerDiv->btn；如果只给btn加，那么函数的触发顺序是 btn -> innerDiv。
 
 
+## 组件
+
+- 父组件的代码
+
+  ```
+  <template>
+      <div>
+          <h3>
+              {{msg}}
+          </h3>
+          
+      </div>
+  </template>
+
+  <script>
+     
+  </script>
+
+  ```
+
+- 子组件中的代码
+
+  ```vue
+  <template>
+      <div>
+          <h3>
+              登录组件++++
+          </h3>
+      </div>
+  </template>
+
+  <script>
+  export default {
+  }
+  </script>
+
+  ```
+
+  ​
+
+### 父组件向子组件传递消息
+
+1. 父组件中的配置
+
+   ```vue
+
+   <login :info="msg1"></login>
+
+   <script>
+     import login from './Login.vue'
+       export default {
+           data:function(){
+               return{
+                   msg:"这是account组件，父组件",
+                   msg1:'传递的消息'
+               }
+           },
+           components:{
+               login#注册组件
+           }
+       }
+   </script>
+   ```
+
+2. 子组件中接收消息
+
+   ```vue
+   <template>
+       <div>
+           <h3>
+               登录组件++++
+           </h3>
+           <p>{{info}}</p>
+       </div>
+   </template>
+
+   <script>
+   export default {
+       data(){
+           return {
+               mes:"子组件中的消息"
+           }
+       },
+       props:['info']#定义属性接收父组件中的消息
+   }
+   </script>
+
+   ```
+
+### 子组件向父组件传递消息
+
+1. 父组件中的配置
+
+```vue
+<template>
+    <div>
+      <!-- 通过事件绑定机制传递消息，在父组件中定义的方法，子组件可以通过特殊的方式调用 -->
+        <login @func="show"></login>
+    </div>
+</template>
+
+<script>
+    import login from './Login.vue'
+
+    export default {
+        data:function(){
+            return{
+                sonMsg:""#定义一个属性，接收子组件的消息
+            }
+        },
+        methods:{
+          show(data){
+              this.sonMsg = data;
+              console.log(this.sonMsg);
+              this.msg = data;
+          }
+        },
+        components:{
+            login
+        }
+    }
+</script>
+
+<style>
+
+</style>
+```
+
+2. 子组件中的配置
+
+```vue
+<template>
+    <div>
+      <!-- 点击按钮调用myshow方法 -->
+         <input type="button" value="弹弹" @click="myshow">
+    </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return {
+            mes:"子组件中的消息"
+        }
+    },
+    methods:{
+        myshow(){
+            console.log("子组件的方法");
+          # 通过这个方法传递给父组件消息，实际调用了父组件的show方法
+          # func要和父组件中绑定的事件名称相同  
+          this.$emit("func",this.mes);
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>
+```
+
 # webpack
 
 ## 第三方loader的使用
@@ -181,7 +342,7 @@ plugins: [
 
 ### 使用
 
-```
+```javascript
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
