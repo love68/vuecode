@@ -222,7 +222,7 @@ export default {
         myshow(){
             console.log("子组件的方法");
           # 通过这个方法传递给父组件消息，实际调用了父组件的show方法
-          # func要和父组件中绑定的事件名称相同  
+          # func要和父组件中绑定的事件名称相同，emit可以有多个参数  
           this.$emit("func",this.mes);
         }
     }
