@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- 方式一： <script type="text/javascript" src="../dist/bundle.js"></script> -->
+		<!-- 方式二： <script type="text/javascript" src="/bundle.js"></script>  -->
+
+		<!-- 方式三：使用 html-webpack-plugin ,这个插件自动创建一个script,并引入路径
+			步骤：1.cnpm i html-webpack-plugin -D
+				  2.webpack.config.js中配置 >2.1 >2.2
+		 -->
+	</head>
+		<!-- 1. npm init y 初始化 >>package.json -->
+		<!-- 2. npm i webpack -D -->
+		<!-- webpack 要打包的路径 输出的路径 -->
+		<!-- 也可以在webpack.config.js中配置
+			const path = require('path')
+
+			module.exports = {
+				entry:path.join(__dirname,'./src/main.js'),
+				output:{
+					path:path.join(__dirname,'./dist'),
+					filename:'bundle.js'
+				},
+				mode:'development'
+			}
+		 -->
+
+		<!-- 3. npm i webpack-dev-server -D -->
+		<!-- package.json 中加入 "dev":"webpack-dev-server" -->
+		<!-- 4. npm run dev -->
+
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+		</ul>
+	</body>
+</html>
+ 

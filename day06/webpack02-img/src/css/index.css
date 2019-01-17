@@ -1,0 +1,15 @@
+.box1{
+	height: 200px;
+	width: 300px;
+	background: url('../images/logo.jpg');
+	background-size: contain;
+}
+.box2{
+	height: 300px;
+	width: 400px;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background-color: plum;
+}
