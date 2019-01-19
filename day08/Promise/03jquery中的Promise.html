@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+	<input type="button" value="获取数据" id="btn">
+
+	<script type="text/javascript">
+		$(function() {
+			$('#btn').on('click',function() {
+				$.ajax({
+					url: './data.json',
+					type: 'get',
+					dataType: 'json'
+				})
+					.then(function(data) {
+						console.log(data)
+					})
+			})
+		});
+	</script>
+</body>
+</html>
